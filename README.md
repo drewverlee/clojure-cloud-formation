@@ -6,7 +6,7 @@ A work in progress towards creating a clojure cdk for aws cloud formation.
 
 It helps you get documentation on cloud formation resources:
 
-```
+```clojure
   (->> cloud-formation-resource-specification
        :ResourceTypes
        :aws.iam/role
