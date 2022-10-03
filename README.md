@@ -7,17 +7,35 @@ A work in progress towards creating a clojure cdk for aws cloud formation.
 It helps you get documentation on cloud formation resources:
 
 ```clojure
+(comment
   (->> cloud-formation-resource-specification
-       :ResourceTypes
+       :resource-types
        :aws.iam/role
-       :Properties
-       :RoleName)
+       :properties
+       keys)
+  ;; => (:description
+  ;;     :path
+  ;;     :tags
+  ;;     :assume-role-policy-document
+  ;;     :policies
+  ;;     :managed-policy-arns
+  ;;     :max-session-duration
+  ;;     :role-name
+  ;;     :permissions-boundary)
 
-  ;; => {:Documentation
+  (->> cloud-formation-resource-specification
+       :resource-types
+       :aws.iam/role
+       :properties
+       :role-name)
+  ;; => {:documentation
   ;;     "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html#cfn-iam-role-rolename",
-  ;;     :PrimitiveType "String",
-  ;;     :Required false,
-  ;;     :UpdateType "Immutable"}
+  ;;     :primitive-type "String",
+  ;;     :required false,
+  ;;     :update-type "Immutable"}
+
+
+  nil)
 ```
 
 

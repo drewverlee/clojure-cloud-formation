@@ -17,41 +17,37 @@
 (def cloud-formation-resource-specification
   (-> "CloudFormationResourceSpecification.json"
       slurp
+      ;;TODO consider making all CamelCase keywords into snake-case keywords
       (json/read-str :key-fn (fn [k] (if-not (str/includes? k "::")
-                                       (keyword k)
+                                       (-> k keyword csk/->kebab-case)
                                        (aws-resource-string->aws-resource-keyword k))))))
 
 (comment
+  (->> cloud-formation-resource-specification
+       :resource-types
+       :aws.iam/role
+       :properties
+       keys)
+  ;; => (:description
+  ;;     :path
+  ;;     :tags
+  ;;     :assume-role-policy-document
+  ;;     :policies
+  ;;     :managed-policy-arns
+  ;;     :max-session-duration
+  ;;     :role-name
+  ;;     :permissions-boundary)
 
   (->> cloud-formation-resource-specification
-       :ResourceTypes
+       :resource-types
        :aws.iam/role
-       :Properties
-       keys
-       )
-  ;; => (:ManagedPolicyArns
-  ;;     :PermissionsBoundary
-  ;;     :Path
-  ;;     :Policies
-  ;;     :Tags
-  ;;     :RoleName
-  ;;     :MaxSessionDuration
-  ;;     :Description
-  ;;     :AssumeRolePolicyDocument)
-
-
-  (->> cloud-formation-resource-specification
-       :ResourceTypes
-       :aws.iam/role
-       :Properties
-       :RoleName)
-
-  ;; => {:Documentation
+       :properties
+       :role-name)
+  ;; => {:documentation
   ;;     "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html#cfn-iam-role-rolename",
-  ;;     :PrimitiveType "String",
-  ;;     :Required false,
-  ;;     :UpdateType "Immutable"}
-
+  ;;     :primitive-type "String",
+  ;;     :required false,
+  ;;     :update-type "Immutable"}
 
 
   nil)
