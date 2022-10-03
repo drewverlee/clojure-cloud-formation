@@ -1,0 +1,4 @@
+{:deps {
+        hickory/hickory                     {:mvn/version "0.7.1"}
+        org.clojure/data.json               {:local/root "/home/drewverlee/repos/data.json"}
+        camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.3"}}}
