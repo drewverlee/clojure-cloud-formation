@@ -50,7 +50,7 @@ A"CDK".
 (aws.iam/role {:role-name "hi"})
 ```
 
-know with clj-kondo on this kind of thing in your editor:
+now with clj-kondo on this kind of thing in your editor:
 
 ```clojure
 (aws.iam/role {:role-name ["hi"]})
